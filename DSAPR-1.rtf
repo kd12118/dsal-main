@@ -1,0 +1,350 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.19041}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9                           PRACTICLKE NO -1\par
+code:\par
+#include<iostream>\par
+#include<string.h>\par
+using namespace std;\par
+struct node\par
+\{\par
+\tab int value;\par
+\tab node *next;\par
+\}*hashtable[10];\par
+class hashing\par
+\{\par
+\tab public:\par
+\tab\tab hashing()\par
+\tab\tab\{\par
+\tab\tab\tab for(int i=0;i<10;i++)\par
+\tab\tab\tab\{\par
+\tab\tab\tab\tab hashtable[i]==NULL;\par
+\tab\tab\tab\}\par
+\tab\tab\tab\par
+\tab\tab\}\par
+\tab\tab int hashfunction(int a)\par
+\tab\tab\tab\{\par
+\tab\tab\tab\tab int a1=a%10;\par
+\tab\tab\tab\tab return a1;\par
+\tab\tab\tab\}\par
+\tab\tab node*create_node(int x)\par
+\tab\tab\{\par
+\tab\tab\tab node*temp=new node;\par
+\tab\tab\tab temp->value=x;\par
+\tab\tab\tab temp->next=NULL;\par
+\tab\tab\tab return temp;\par
+\tab\tab\tab\par
+\tab\tab\}\par
+\tab\tab void display()\par
+\tab\tab\{\par
+\tab\tab\tab for( int i=0;i<10;i++)\par
+\tab\tab\tab\{\par
+\tab\tab\tab\tab node*temp=new node;\par
+\tab\tab\tab\tab temp=hashtable[i];\par
+\tab\tab\tab\tab cout<<"a["<<i<<"]"<<endl;\par
+\tab\tab\tab\tab while(temp!=NULL)\par
+\tab\tab\tab\tab\{\par
+\tab\tab\tab\tab\tab cout<<"->"<<temp->value;\par
+\tab\tab\tab\tab\tab temp=temp->next;\par
+\tab\tab\tab\tab\}\par
+\tab\tab\tab\tab cout<<"\\n";\par
+\tab\tab\tab\tab\par
+\tab\tab\tab\}\par
+\tab\tab\}\par
+\tab\tab\tab int searchelement(int value)\par
+\tab\tab\tab\{\par
+\tab\tab\tab\tab bool flag=false;\par
+\tab\tab\tab\tab int hash_val=hashfunction(value);\par
+\tab\tab\tab\tab node*entry=hashtable[hash_val];\par
+\tab\tab\tab\tab cout<<"\\n element found at index : ";\par
+\tab\tab\tab\tab while(entry!=NULL)\{\par
+\tab\tab\tab\tab\tab if(entry->value==value)\par
+\tab\tab\tab\tab\tab\{\par
+\tab\tab\tab\tab\tab\tab cout<<hash_val<<":"<<entry->value<<endl;\par
+\tab\tab\tab\tab\tab\tab flag=true;\par
+\tab\tab\tab\tab\tab\}\par
+\tab\tab\tab\tab\tab entry=entry->next;\par
+\tab\tab\tab\tab\}\par
+\tab\tab\tab\tab if(!flag)\{\par
+\tab\tab\tab\tab\tab return -1;\par
+\tab\tab\tab\tab\}\par
+\tab\tab\tab\}\par
+\tab\tab\tab void   deleteElement(int value)\par
+\tab\tab\tab\{\par
+\tab\tab\tab\tab\par
+\tab\tab\tab\tab int hash_val=hashfunction(value);\par
+\tab\tab\tab\tab node*entry=hashtable[hash_val];\par
+\tab\tab\tab\par
+\tab\tab\tab\tab if(entry==NULL)\{\par
+\tab\tab\tab\tab\tab cout<<"No element found at key ";\par
+\tab\tab\tab\tab\tab return;\par
+\tab\tab\tab\tab\tab\par
+\tab\tab\tab     \}\par
+\tab\tab\tab     \par
+\tab\tab\tab\tab else if(entry->value==value)\par
+\tab\tab\tab\tab\{\par
+\tab\tab\tab\tab\tab hashtable[hash_val]=entry->next;\par
+\tab\tab\tab\tab\tab return;\par
+\tab\tab\tab\tab\tab\par
+\tab\tab\tab\tab\}\par
+\tab\tab\tab\tab else\par
+\tab\tab\tab\tab\{\par
+\tab\tab\tab\tab\par
+\tab\tab\tab\tab while((entry->next)->value!=value)\par
+\tab\tab\tab\tab\{\par
+\tab\tab\tab\tab\tab entry=entry->next;\par
+\tab\tab\tab\tab\tab return;\par
+\tab\tab\tab\tab\}\par
+\tab\tab\tab\}\par
+\tab\tab\tab\tab entry->next=(entry->next)->next;\par
+\tab\tab\tab\tab\par
+\tab\tab\tab\}\par
+\tab\tab\tab  void insertElement(int value)\par
+\tab\tab\tab  \par
+\tab\tab\tab  \{\par
+\tab\tab\tab  \tab int hash_val=hashfunction(value);\par
+\tab\tab\tab  \tab node*temp=new node;\par
+\tab\tab\tab  \tab node*head=new node;\par
+\tab\tab\tab  \tab head=create_node(value);\par
+\tab\tab\tab  \tab temp=hashtable[hash_val];\par
+\tab\tab\tab  \tab if(temp==NULL)\par
+\tab\tab\tab  \tab\{\par
+\tab\tab\tab  \tab\tab hashtable[hash_val]=head;\par
+\tab\tab\tab\tab  \}\par
+\tab\tab\tab\tab  else\par
+\tab\tab\tab\tab  \{\par
+\tab\tab\tab\tab  \tab while(temp->next!=NULL)\par
+\tab\tab\tab\tab  \tab\{\par
+\tab\tab\tab\tab  \tab\tab temp=temp->next;\par
+\tab\tab\tab\tab\tab  \}\par
+\tab\tab\tab\tab\tab  temp->next=head;\par
+\tab\tab\tab\tab  \}\par
+\tab\tab\tab  \}\par
+\tab\tab\tab\par
+\tab\tab\par
+       \};\par
+\tab int main()\par
+\tab\{\par
+\tab\tab int ch;\par
+\tab\tab int data,search,del;\par
+\tab\tab hashing h;\par
+\tab\tab do\par
+\tab\tab\{\par
+\tab\tab\tab cout<<"\\n Telephone : \\n 1.Insert \\n 2.display \\n 3.search \\n 4.Delete \\n 5.Exit\\n";\par
+\tab\tab\tab cout<<"\\n Enter your choice : ";\par
+\tab\tab\tab cin>>ch;\par
+\tab\tab\tab switch(ch)\par
+\tab\tab\tab\{\par
+\tab\tab\tab\tab case 1:\par
+\tab\tab\tab\tab\tab cout<<"\\n Enter phone no to be inserted: ";\par
+\tab\tab\tab\tab\tab cin>>data;\par
+\tab\tab\tab\tab\tab h.insertElement(data);\par
+\tab\tab\tab\tab\tab break;\par
+\tab\tab\tab     case 2:\par
+\tab\tab\tab     \tab h.display();\par
+\tab\tab\tab     \tab break;\par
+\tab\tab\tab     case 3:\par
+\tab\tab\tab     \tab cout<<"\\n Enter the no to be searched: ";\par
+\tab\tab\tab     \tab cin>>search;\par
+\tab\tab\tab     \tab if(h.searchelement(search)==-1)\par
+\tab\tab\tab     \tab\{\par
+\tab\tab\tab     \tab\tab cout<<"\\n No element found at key:  ";\par
+\tab\tab\tab     \tab\tab continue;\par
+\tab\tab\tab\tab\tab\}\par
+\tab\tab\tab\tab\tab break;\par
+\tab\tab\tab\tab case 4:\par
+\tab\tab\tab\tab\tab\par
+\tab\tab\tab\tab cout<<"\\n Enter the phone no you want to delete: ";\par
+\tab\tab\tab\tab cin>>del;\par
+\tab\tab\tab\tab h.deleteElement(del);\par
+\tab\tab\tab\tab break;\par
+\tab\tab\tab\tab  \par
+\tab\tab\tab\}\par
+\tab\tab\}while(ch!=5);\par
+\tab\tab return 0;\par
+\tab\}\par
+\tab\tab\par
+Output:\par
+\par
+ Telephone :\par
+ 1.Insert\par
+ 2.display\par
+ 3.search\par
+ 4.Delete\par
+ 5.Exit\par
+\par
+ Enter your choice : 1\par
+\par
+ Enter phone no to be inserted: 12\par
+\par
+ Telephone :\par
+ 1.Insert\par
+ 2.display\par
+ 3.search\par
+ 4.Delete\par
+ 5.Exit\par
+\par
+ Enter your choice : 1\par
+\par
+ Enter phone no to be inserted: 23\par
+\par
+ Telephone :\par
+ 1.Insert\par
+ 2.display\par
+ 3.search\par
+ 4.Delete\par
+ 5.Exit\par
+\par
+ Enter your choice : 1\par
+\par
+ Enter phone no to be inserted: 22\par
+\par
+ Telephone :\par
+ 1.Insert\par
+ 2.display\par
+ 3.search\par
+ 4.Delete\par
+ 5.Exit\par
+\par
+ Enter your choice : 1\par
+\par
+ Enter phone no to be inserted: 45\par
+\par
+ Telephone :\par
+ 1.Insert\par
+ 2.display\par
+ 3.search\par
+ 4.Delete\par
+ 5.Exit\par
+\par
+ Enter your choice : 1\par
+\par
+ Enter phone no to be inserted: 23\par
+\par
+ Telephone :\par
+ 1.Insert\par
+ 2.display\par
+ 3.search\par
+ 4.Delete\par
+ 5.Exit\par
+\par
+ Enter your choice : 1\par
+\par
+ Enter phone no to be inserted: 67\par
+\par
+ Telephone :\par
+ 1.Insert\par
+ 2.display\par
+ 3.search\par
+ 4.Delete\par
+ 5.Exit\par
+\par
+ Enter your choice : 2\par
+a[0]\par
+\par
+a[1]\par
+\par
+a[2]\par
+->12->22\par
+a[3]\par
+->23->23\par
+a[4]\par
+\par
+a[5]\par
+->45\par
+a[6]\par
+\par
+a[7]\par
+->67\par
+a[8]\par
+\par
+a[9]\par
+\par
+\par
+ Telephone :\par
+ 1.Insert\par
+ 2.display\par
+ 3.search\par
+ 4.Delete\par
+ 5.Exit\par
+\par
+ Enter your choice : 3\par
+\par
+ Enter the no to be searched: 23\par
+\par
+ element found at index : 3:23\par
+3:23\par
+\par
+ Telephone :\par
+ 1.Insert\par
+ 2.display\par
+ 3.search\par
+ 4.Delete\par
+ 5.Exit\par
+\par
+ Enter your choice : 3\par
+\par
+ Enter the no to be searched: 0\par
+\par
+ element found at index :\par
+ No element found at key:\par
+ Telephone :\par
+ 1.Insert\par
+ 2.display\par
+ 3.search\par
+ 4.Delete\par
+ 5.Exit\par
+\par
+ Enter your choice : 4\par
+\par
+ Enter the phone no you want to delete: 67\par
+\par
+ Telephone :\par
+ 1.Insert\par
+ 2.display\par
+ 3.search\par
+ 4.Delete\par
+ 5.Exit\par
+\par
+ Enter your choice : 2\par
+a[0]\par
+\par
+a[1]\par
+\par
+a[2]\par
+->12->22\par
+a[3]\par
+->23->23\par
+a[4]\par
+\par
+a[5]\par
+->45\par
+a[6]\par
+\par
+a[7]\par
+\par
+a[8]\par
+\par
+a[9]\par
+\par
+\par
+ Telephone :\par
+ 1.Insert\par
+ 2.display\par
+ 3.search\par
+ 4.Delete\par
+ 5.Exit\par
+\par
+ Enter your choice : 4\par
+\par
+ Enter the phone no you want to delete: 1\par
+No element found at key\par
+ Telephone :\par
+ 1.Insert\par
+ 2.display\par
+ 3.search\par
+ 4.Delete\par
+ 5.Exit\par
+\par
+ Enter your choice : 5\par
+}
+ 
